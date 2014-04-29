@@ -1,0 +1,3 @@
+# Metricity
+class Metricity
+end
