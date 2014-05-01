@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'metricity'
-puts Metricity.class_name
+puts Metricity.new

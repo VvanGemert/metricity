@@ -1,5 +1,9 @@
-require "metricity/version"
+require 'metricity/version'
+require 'metricity/plugin'
 
+# Metricity
 module Metricity
-  # Your code goes here...
+  def self.init
+    Plugin.init
+  end
 end
