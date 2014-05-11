@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     metricity (0.0.1)
+      json
 
 GEM
   remote: https://rubygems.org/
