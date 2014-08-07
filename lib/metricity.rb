@@ -1,4 +1,5 @@
 require 'metricity/version'
+require 'metricity/daemon'
 require 'metricity/plugin'
 require 'metricity/pigeon'
 
@@ -6,10 +7,11 @@ require 'metricity/pigeon'
 module Metricity
   def self.init
     pigeon = Metricity::Pigeon.new
-    pigeon.package(
+    pigeon.package = {
       'time' => Time.now.utc.to_s,
-      'type' => 'memory_usage',
-      'objects' => { 'rails' => 50, 'delayed_job' => 100 })
+      'metrics' => {
+        'memory_usage' => {
+          'objects' => { 'rails' => 50, 'delayed_job' => 100 } } } }
     pigeon.fly!
   end
 end

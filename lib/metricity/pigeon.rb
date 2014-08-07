@@ -5,15 +5,11 @@ require 'socket'
 module Metricity
   # Pigeon
   class Pigeon
-    @package = {}
-    
-    def package(package)
-      @package = package
-    end
+    attr_writer :package
 
     def fly!
-      udps = UDPSocket.new
-      udps.send @package.to_json, 0, "127.0.0.1", 9888
+      tcps = TCPSocket.new '127.0.0.1', 9888
+      tcps.send @package.to_json, 0
     end
   end
 end
