@@ -21,8 +21,9 @@ module Metricity
       puts ':: Starting..'
       $keep_running = true
       while($keep_running)
-        sleep(5)
-        puts 'test'
+        sleep(10)
+        Metricity.init
+        puts 'Metrics send!'
       end
     end
 
