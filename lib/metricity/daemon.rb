@@ -1,5 +1,3 @@
-require 'thin'
-
 module Metricity
   # Daemon
   module Daemon
@@ -19,11 +17,11 @@ module Metricity
     def self.run
       puts 'Metricity Client ' + Metricity::VERSION
       puts ':: Starting..'
-      $keep_running = true
-      while($keep_running)
-        sleep(10)
+      @keep_running = true
+      while @keep_running
         Metricity.init
         puts 'Metrics send!'
+        sleep(10)
       end
     end
 
@@ -64,23 +62,6 @@ module Metricity
     end
 
     private
-
-    # Setup Server
-    def self.setup_server
-      Thin::Logging.silent = true
-      Thin::Server.new('0.0.0.0', 4567) do
-        EM.next_tick do
-          # UDP Server
-          # EM.open_datagram_socket('127.0.0.1', 9888,
-          #                         Metricity::Server::Receiver)
-          # TCP Server
-          EM.start_server '0.0.0.0', 9888, Metricity::Server::Receiver
-        end
-        map '/' do
-          run Metricity::Server::Webserver
-        end
-      end
-    end
 
     # Load PID
     def self.load_pid
