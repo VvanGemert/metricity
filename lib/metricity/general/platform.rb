@@ -3,7 +3,7 @@ module Metricity
   module Platform
     def self.determine
       os = detect_os
-      { os: os, version: version(os) }
+      { os: os }.merge(version(os))
     end
 
     def self.detect_os
@@ -20,7 +20,7 @@ module Metricity
       if os == :mac
         raw = `sw_vers | cut -d: -f2 | awk '{print $1;}'`
         output = raw.split("\n")
-        output[1] + ' build: ' + output[2]
+        { version: output[1], build: output[2] }
       elsif os == :linux
         raw = `lsb_release -a | cut -d: -f2 | tr -d '\t'`
         output = raw.split("\n")

@@ -8,12 +8,13 @@ module Metricity
   module Report
     def self.init
       require_metrics
-      data = { system: {}}
-      data[:system][:platform] = Metricity::Platform.determine
-      data[:system][:network] = Metricity::Network.gather(data[:system][:platform])
-      
+      data = { system: {} }
+      platform = Metricity::Platform.determine
+      data[:system][:platform] = platform
+      data[:system][:network] = Metricity::Network.gather(platform)
+
       p data
-      
+
       # p machine_info
       # Metricity::Metric::Cpu.run
       # Metricity::Metric::Memory.run
