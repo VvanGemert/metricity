@@ -24,8 +24,11 @@ module Metricity
       elsif os == :linux
         raw = `lsb_release -a | cut -d: -f2 | tr -d '\t'`
         output = raw.split("\n")
+        base = 'deb'
+        base = 'rpm' if output[0].include?('redhat', 'fedora','centos')
         { distro: output[0], name: output[3],
-          version: output[2], all: output[1] }
+          version: output[2], all: output[1],
+          base: base }
       end
     end
   end
