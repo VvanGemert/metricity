@@ -14,7 +14,8 @@ module Metricity
     end
 
     def self.private_ip
-      Socket.ip_address_list.find { |intf| intf.ipv4_private? }.ip_address
+      address = Socket.ip_address_list.find { |intf| intf.ipv4_private? }
+      address ? address.ip_address : 'unknown'
     end
 
     def self.public_ip
