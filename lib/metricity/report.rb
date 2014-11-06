@@ -1,6 +1,6 @@
 require 'metricity/pigeon'
 require 'metricity/general/platform'
-require 'metricity/general/machine'
+require 'metricity/general/network'
 
 # Metricity
 module Metricity
@@ -8,9 +8,12 @@ module Metricity
   module Report
     def self.init
       require_metrics
-      platform = Metricity::Platform.determine
-      p platform
-      # machine_info = Metricity::Machine.info(os)
+      data = { system: {}}
+      data[:system][:platform] = Metricity::Platform.determine
+      data[:system][:network] = Metricity::Network.gather(data[:system][:platform])
+      
+      p data
+      
       # p machine_info
       # Metricity::Metric::Cpu.run
       # Metricity::Metric::Memory.run
