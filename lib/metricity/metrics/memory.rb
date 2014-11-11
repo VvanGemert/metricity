@@ -31,7 +31,7 @@ module Metricity
         free = total.to_i - used.to_i
         { total: total.to_i, used: used.to_i, free: free }
       end
-      
+
       def self.to_mb(val)
         (val.to_f / 1000).to_i
       end

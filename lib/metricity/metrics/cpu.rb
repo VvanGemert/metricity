@@ -16,7 +16,9 @@ module Metricity
         raw = `echo | top -bn1`
         raw = raw.split("\n")
         cpu_usage = raw[2].split(' ')
-        { user: cpu_usage[1], system: cpu_usage[3], idle: cpu_usage[7] }
+        { user: cpu_usage[1].to_f.round,
+          system: cpu_usage[3].to_f.round,
+          idle: cpu_usage[7].to_f.round }
       end
 
       def self.mac_specific

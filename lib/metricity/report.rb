@@ -16,7 +16,7 @@ module Metricity
 
       metrics.each do |metric|
         data[:metrics][metric.to_sym] =
-          Kernel.const_get('Metricity::Metric::' + metric.capitalize)
+          get_module('Metricity::Metric::' + metric.capitalize)
             .run(platform)
       end
 
@@ -24,6 +24,12 @@ module Metricity
     end
 
     private
+
+    def self.get_module(str)
+      str.split('::').reduce(Object) do |mod, class_name|
+        mod.const_get(class_name)
+      end
+    end
 
     def self.require_metrics
       list = []
