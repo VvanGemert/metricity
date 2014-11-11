@@ -8,6 +8,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (1.1.0)
+    awesome_print (1.2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -66,6 +67,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bundler (~> 1.6)
   guard
   guard-minitest

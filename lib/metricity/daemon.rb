@@ -15,6 +15,7 @@ module Metricity
 
     # Run
     def self.run
+      trap_signals
       puts 'Metricity Client ' + Metricity::VERSION
       puts ':: Starting..'
       @keep_running = true
@@ -91,6 +92,14 @@ module Metricity
       rescue => exc
         Process.kill('TERM', pid)
         warn "Cannot start daemon: #{exc.message}"
+    end
+
+    # Trap signals
+    def self.trap_signals
+      trap 'SIGINT' do
+        puts 'Exiting'
+        exit 130
+      end
     end
   end
 end
