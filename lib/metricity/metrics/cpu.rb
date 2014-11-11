@@ -8,12 +8,7 @@ module Metricity
         if platform[:os] == :mac
           mac_specific
         elsif platform[:os] == :linux
-          puts 'CPU:'
-          # output = `cat /proc/stat 2>&1`
-          if $CHILD_STATUS && !$CHILD_STATUS.success?
-            output = `sar 1 2>&1`
-            puts output
-          end
+          linux_specific
         end
       end
 
