@@ -8,22 +8,26 @@ module Metricity
   # Report
   module Report
     def self.init
-      metrics = require_metrics
       data = { system: {}, metrics: {} }
       platform = Metricity::Platform.determine
       data[:system][:platform] = platform
       data[:system][:network] = Metricity::Network.gather(platform)
-
-      metrics.each do |metric|
-        data[:metrics][metric.to_sym] =
-          get_module('Metricity::Metric::' + metric.capitalize)
-            .run(platform)
-      end
-
+      data[:metrics] = handle_metrics(platform)
       ap data
     end
 
     private
+
+    def self.handle_metrics(platform)
+      data = {}
+      metrics = require_metrics
+      metrics.each do |metric|
+        data[metric.to_sym] =
+          get_module('Metricity::Metric::' + metric.capitalize)
+            .run(platform)
+      end
+      data
+    end
 
     def self.get_module(str)
       str.split('::').reduce(Object) do |mod, class_name|

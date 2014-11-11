@@ -20,10 +20,14 @@ module Metricity
 
     def self.public_ip
       ip = 'unknown'
-      open('http://checkip.dyndns.org') do |f|
-        f.each_line { |line| ip = line.split('Address:')[1].split('<')[0] }
+      begin
+        open('http://checkip.dyndns.org', read_timeout: 5) do |f|
+          f.each_line { |line| ip = line.split('Address:')[1].split('<')[0] }
+        end
+        ip.strip!
+      rescue
+        ip
       end
-      ip.strip!
     end
   end
 end

@@ -31,7 +31,7 @@ module Metricity
     end
 
     def self.linux_specific
-      raw = `lsb_release -a | cut -d: -f2 | tr -d '\t'`
+      raw = `lsb_release -a 2>1 | cut -d: -f2 | tr -d '\t'`
       output = raw.split("\n")
       base = 'deb'
       base = 'rpm' if %w(redhat fedora centos).include?(output[0])
