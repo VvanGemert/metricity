@@ -18,7 +18,7 @@ module Metricity
       end
 
       def self.to_mb(value)
-        (value.to_f / 1000).to_i
+        (value.to_f / 1024).to_i
       end
     end
   end

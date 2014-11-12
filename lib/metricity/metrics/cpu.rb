@@ -13,7 +13,7 @@ module Metricity
       end
 
       def self.linux_specific
-        raw = `echo | top -bn1`
+        raw = `top -bn1`
         raw = raw.split("\n")
         cpu_usage = raw[2].split(' ')
         { user: cpu_usage[1].to_f.round,
@@ -22,12 +22,12 @@ module Metricity
       end
 
       def self.mac_specific
-        raw = `echo | top -n1`
-        raw = raw.split("\r")
-        cpu_usage = raw[1].split(' ')
-        { user: to_percentage(cpu_usage[7]),
-          system: to_percentage(cpu_usage[9]),
-          idle: to_percentage(cpu_usage[11]) }
+        raw = `top -n 1 -l 1`
+        raw = raw.split("\n")
+        cpu_usage = raw[3].split(' ')
+        { user: to_percentage(cpu_usage[2]),
+          system: to_percentage(cpu_usage[4]),
+          idle: to_percentage(cpu_usage[6]) }
       end
 
       def self.to_percentage(val)

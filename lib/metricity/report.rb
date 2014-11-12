@@ -1,6 +1,7 @@
 require 'metricity/pigeon'
 require 'metricity/general/platform'
 require 'metricity/general/network'
+require 'metricity/general/system_time'
 require 'awesome_print'
 
 # Metricity
@@ -12,6 +13,7 @@ module Metricity
       platform = Metricity::Platform.determine
       data[:system][:platform] = platform
       data[:system][:network] = Metricity::Network.gather(platform)
+      data[:system][:time] = Metricity::SystemTime.gather(platform)
       data[:metrics] = handle_metrics(platform)
       ap data
     end
